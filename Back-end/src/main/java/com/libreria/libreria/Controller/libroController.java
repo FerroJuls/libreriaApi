@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.libreria.libreria.InterfacesService.IlibroService;
 import com.libreria.libreria.Models.libro;
 
-@RequestMapping("/api/v1/libro")
+@RequestMapping("/api/v1/libro/")
 @RestController
 public class libroController {
     
