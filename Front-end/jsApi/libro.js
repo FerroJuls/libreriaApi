@@ -1,7 +1,50 @@
+
+// URL de la API se declara una url por si se modifica solo cambiar donde la declaro y no entodas las demas partes
+var url = "http://localhost:8080/api/v1/libro/";
+
 // hacemos la funcion del filtro 
 function buscarLibroPorFiltro(filtro) {
+    if (filtro.trim() !== "") {
+        $.ajax({
+            url: "http://localhost:8080/api/v1/libro/busquedaFiltros/" + filtro,
+            type: "GET",
+            success: function (result) {
+                var cuerpoTabla = document.getElementById("cuerpoTabla");
+                cuerpoTabla.innerHTML = "";
+
+                for (var i = 0; i < result.length; i++) {
+                    var trRegistro = document.createElement("tr");
+                    trRegistro.innerHTML = `
+                        <td>${result[i]["idLibro"]}</td>
+                        <td class="align-middle">${result[i]["titulo"]}</td>
+                        <td class="text-center align-middle">${result[i]["autor"]}</td>
+                        <td class="text-center align-middle">${result[i]["isbn"]}</td>
+                        <td class="text-center align-middle">${result[i]["genero"]}</td>
+                        <td class="text-center align-middle">${result[i]["numEjemplarDisponible"]}</td>
+                        <td class="text-center align-middle">${result[i]["numEjemplarOcupado"]}</td>
+                        <td class="text-center align-middle">
+                            <i class="fas fa-edit editar" onclick="registrarLibroBandera=false;" data-id="${result[i]["idLibro"]}"></i>
+                            <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idLibro"]}"></i>
+                        </td>
+                    `;
+                    cuerpoTabla.appendChild(trRegistro);
+                }
+            },
+            error: function (error) {
+                alert("Error en la petición: " + error);
+            }
+        });
+    } else {
+        // Si el filtro está vacío, llamar a la función para listar todos los libros
+        listarLibro();
+    }
+}
+
+
+// Función para listar los libros registrados en la Api
+function listarLibro() {
     $.ajax({
-        url: "http://localhost:8080/api/v1/libro/busquedaFiltros/" + filtro,
+        url: url,
         type: "GET",
         success: function (result) {
             var cuerpoTabla = document.getElementById("cuerpoTabla");
@@ -11,9 +54,9 @@ function buscarLibroPorFiltro(filtro) {
                 var trRegistro = document.createElement("tr");
                 trRegistro.innerHTML = `
                     <td>${result[i]["idLibro"]}</td>
-                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
+                    <td class="align-middle">${result[i]["titulo"]}</td>
                     <td class="text-center align-middle">${result[i]["autor"]}</td>
-                    <td class="text-center align-middle">${result[i]["ISBN"]}</td>
+                    <td class="text-center align-middle">${result[i]["isbn"]}</td>
                     <td class="text-center align-middle">${result[i]["genero"]}</td>
                     <td class="text-center align-middle">${result[i]["numEjemplarDisponible"]}</td>
                     <td class="text-center align-middle">${result[i]["numEjemplarOcupado"]}</td>
@@ -33,43 +76,7 @@ function buscarLibroPorFiltro(filtro) {
 
 // hacemos la funcion para que al limpiar la barra quede en blanco para que escribas y busques en el filtro por otro nombre
 function blanquearCampos() {
-    document.getElementById('texto').value = ""; 
-}
-
-// URL de la API se declara una url por si se modifica solo cambiar donde la declaro y no entodas las demas partes
-var url = "http://localhost:8080/api/v1/libro/";
-
-// Función para listar los libros registrados en la Api
-function listarLibro() {
-    $.ajax({
-        url: url,
-        type: "GET",
-        success: function (result) {
-            var cuerpoTabla = document.getElementById("cuerpoTabla");
-            cuerpoTabla.innerHTML = "";
-
-            for (var i = 0; i < result.length; i++) {
-                var trRegistro = document.createElement("tr");
-                trRegistro.innerHTML = `
-                    <td>${result[i]["idLibro"]}</td>
-                    <td class="text-center align-middle">${result[i]["titulo"]}</td>
-                    <td class="text-center align-middle">${result[i]["autor"]}</td>
-                    <td class="text-center align-middle">${result[i]["ISBN"]}</td>
-                    <td class="text-center align-middle">${result[i]["genero"]}</td>
-                    <td class="text-center align-middle">${result[i]["numEjemplarDisponible"]}</td>
-                    <td class="text-center align-middle">${result[i]["numEjemplarOcupado"]}</td>
-                    <td class="text-center align-middle">
-                        <i class="fas fa-edit editar"  onclick="registrarLibroBandera=false;" data-id="${result[i]["idLibro"]}"></i>
-                        <i class="fas fa-trash-alt eliminar" data-id="${result[i]["idLibro"]}"></i>
-                    </td>
-                `;
-                cuerpoTabla.appendChild(trRegistro);
-            }
-        },
-        error: function (error) {
-            alert("Error en la petición: " + error);
-        }
-    });
+    document.getElementById('texto').value = "";
 }
 
 // funcion para registrar un libro con campos obligatorios 
@@ -79,7 +86,7 @@ var registrarLibroBandera = true;
 function registrarLibro() {
     var titulo = document.getElementById("titulo");
     var autor = document.getElementById("autor");
-    var ISBN = document.getElementById("ISBN");
+    var isbn = document.getElementById("isbn");
     var genero = document.getElementById("genero");
     var numEjemplarDisponible = document.getElementById("numEjemplarDisponible");
     var numEjemplarOcupado = document.getElementById("numEjemplarOcupado");
@@ -87,7 +94,7 @@ function registrarLibro() {
     // Verificar si algún campo obligatorio está vacío
     if (!validarTitulo(titulo) ||
         !validarAutor(autor) ||
-        !validarISBN(ISBN) ||
+        !validarisbn(isbn) ||
         !validarGenero(genero) ||
         !validarNumEjemplarDisponible(numEjemplarDisponible) ||
         !validarNumEjemplarOcupado(numEjemplarOcupado)) {
@@ -103,7 +110,7 @@ function registrarLibro() {
     var forData = {
         "titulo": titulo.value,
         "autor": autor.value,
-        "ISBN": ISBN.value,
+        "isbn": isbn.value,
         "genero": genero.value,
         "numEjemplarDisponible": numEjemplarDisponible.value,
         "numEjemplarOcupado": numEjemplarOcupado.value,
@@ -115,7 +122,7 @@ function registrarLibro() {
     if (registrarLibroBandera == true) {
         metodo = "POST";
         urlLocal = url;
-        
+
     } else {
         metodo = "PUT";
         urlLocal = url + idLibro;
@@ -127,6 +134,7 @@ function registrarLibro() {
             type: metodo,
             data: forData,
             success: function (response) {
+                limpiar();
                 Swal.fire({
                     title: "LISTO",
                     text: "Felicidades, Registro exitoso",
@@ -136,7 +144,10 @@ function registrarLibro() {
                     $('#exampleModal').modal('hide');
                     listarLibro(); // Aquí se vuelve a listar los productos
                 });
-            },            
+            },
+            error: function (request, error) {
+                alert("Request: " + JSON.stringify(request));
+            }
         });
     } else {
         Swal.fire({
@@ -148,13 +159,22 @@ function registrarLibro() {
 };
 
 // Función para validar campos
+// Función para validar campos
 
+function validarCampos() {
+    var titulo = document.getElementById("titulo");
+    var autor = document.getElementById("autor");
+    var isbn = document.getElementById("isbn");
+    var genero = document.getElementById("genero");
+    var numEjemplarDisponible = document.getElementById("numEjemplarDisponible");
+    var numEjemplarOcupado = document.getElementById("numEjemplarOcupado");
+
+    return validarTitulo(titulo) && validarAutor(autor) && validarisbn(isbn) &&
+        validarGenero(genero) && validarNumEjemplarDisponible(numEjemplarDisponible) &&
+        validarNumEjemplarOcupado(numEjemplarOcupado);
+}
 
 // Función titulo 
-function validarCamposTitulo() {
-    var titulo = document.getElementById("titulo");
-    return validarTitulo(titulo);
-}
 function validarTitulo(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
@@ -173,10 +193,6 @@ function validarTitulo(cuadroNumero) {
 }
 
 // Función autor
-function validarCamposAutor() {
-    var autor = document.getElementById("autor");
-    return validarAutor(autor);
-}
 function validarAutor(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
@@ -194,13 +210,8 @@ function validarAutor(cuadroNumero) {
     return valido;
 }
 
-
-// Función ISBN
-function validarCamposISBN() {
-    var ISBN = document.getElementById("ISBN");
-    return validarISBN(ISBN);
-}
-function validarISBN(cuadroNumero) {
+// Función isbn
+function validarisbn(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
@@ -218,10 +229,6 @@ function validarISBN(cuadroNumero) {
 }
 
 // Función genero
-function validarCamposGenero() {
-    var genero = document.getElementById("genero");
-    return validarGenero(genero);
-}
 function validarGenero(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
@@ -240,10 +247,6 @@ function validarGenero(cuadroNumero) {
 }
 
 // Función numEjemplarDisponible
-function validarCamposNumEjemplarDisponible() {
-    var numEjemplarDisponible = document.getElementById("numEjemplarDisponible");
-    return validarNumEjemplarDisponible(numEjemplarDisponible);
-}
 function validarNumEjemplarDisponible(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
@@ -262,10 +265,6 @@ function validarNumEjemplarDisponible(cuadroNumero) {
 }
 
 // Función numEjemplarOcupado
-function validarCamposNumEjemplarOcupado() {
-    var numEjemplarOcupado = document.getElementById("numEjemplarOcupado");
-    return validarNumEjemplarOcupado(numEjemplarOcupado);
-}
 function validarNumEjemplarOcupado(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
@@ -289,8 +288,8 @@ function limpiar() {
     document.getElementById("titulo").className = "form-control";
     document.getElementById("autor").value = "";
     document.getElementById("autor").className = "form-control";
-    document.getElementById("ISBN").value = "";
-    document.getElementById("ISBN").className = "form-control";
+    document.getElementById("isbn").value = "";
+    document.getElementById("isbn").className = "form-control";
     document.getElementById("genero").value = "";
     document.getElementById("genero").className = "form-control";
     document.getElementById("numEjemplarDisponible").value = "";
@@ -311,7 +310,7 @@ $(document).on("click", ".editar", function () {
         success: function (libro) {
             document.getElementById("titulo").value = libro.titulo;
             document.getElementById("autor").value = libro.autor;
-            document.getElementById("ISBN").value = libro.ISBN;
+            document.getElementById("isbn").value = libro.isbn;
             document.getElementById("genero").value = libro.genero;
             document.getElementById("numEjemplarDisponible").value = libro.numEjemplarDisponible;
             document.getElementById("numEjemplarOcupado").value = libro.numEjemplarOcupado;

@@ -23,40 +23,7 @@ public class libroController {
     private IlibroService libroService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save(@ModelAttribute("libro") libro libro) {
-        var listaLibro = libroService.findAll()
-                .stream().filter(Libro -> Libro.getTitulo()
-                        .equals(Libro.getTitulo()));
-
-        if (listaLibro.count() != 0) {
-            return new ResponseEntity<>("Este cliente ya existe", HttpStatus.BAD_REQUEST);
-        }
-
-        if (libro.getAutor().equals("")) {
-
-            return new ResponseEntity<>("El campo tipo de documento es obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
-        if (libro.getISBN().equals("")) {
-
-            return new ResponseEntity<>("El campo documento es obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
-        if (libro.getGenero().equals("")) {
-
-            return new ResponseEntity<>("El campo nombre es obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
-        if (libro.getNumEjemplarDisponible().equals("")) {
-
-            return new ResponseEntity<>("El campo apellido es obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
-        if (libro.getNumEjemplarOcupado().equals("")) {
-
-            return new ResponseEntity<>("El campo número de teléfono es obligatorio", HttpStatus.BAD_REQUEST);
-        }
-
+     public ResponseEntity<Object> save (@ModelAttribute("libro") libro libro){
         libroService.save(libro);
         return new ResponseEntity<>(libro, HttpStatus.OK);
     }
@@ -93,7 +60,7 @@ public class libroController {
 
             libro.setTitulo(libroUpdate.getTitulo());
             libro.setAutor(libroUpdate.getAutor());
-            libro.setISBN(libroUpdate.getISBN());
+            libro.setIsbn(libroUpdate.getIsbn());
             libro.setGenero(libroUpdate.getGenero());
             libro.setNumEjemplarDisponible(libroUpdate.getNumEjemplarDisponible());
             libro.setNumEjemplarOcupado(libroUpdate.getNumEjemplarOcupado());

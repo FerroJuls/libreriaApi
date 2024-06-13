@@ -24,7 +24,7 @@
    <link rel="icon" href="images/fevicon.png" type="image/gif" />
    <!-- Scrollbar Custom CSS -->
    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-   
+
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <!-- Tweaks for older IEs-->
    <!--[if lt IE 9]>
@@ -76,10 +76,10 @@
                         <nav class="main-menu">
                            <ul class="menu-area-main">
                               <li><a href="/Front-end/index.html"><b>Inicio</b></a></li>
-                              <li> <a href="#">Lectores</a> </li>
-                              <li class="active"><a href="books.html">Biblioteca</a></li>
-                              <li><a href="library.html">Préstamo</a></li>
-                              <li><a href="contact.html">Multas</a></li>
+                              <li><a href="/Front-end/usuarios.html">Lectores</a> </li>
+                              <li class="active"><a href="/Front-end/libros.html">Biblioteca</a></li>
+                              <li><a href="/Front-end/prestamo.html">Préstamo</a></li>
+                              <li><a href="/Front-end/multa.html">Multas</a></li>
                            </ul>
                         </nav>
                      </div>
@@ -102,42 +102,40 @@
             <div class="input-group mb-3">
                <div class="input-group mb-3">
                   <input type="text" id="texto" class="form-control" placeholder="Buscar..." aria-label="Buscar"
-                      aria-describedby="button-addon2">
+                     onkeyup="buscarLibroPorFiltro(document.getElementById('texto').value)"
+                     aria-describedby="button-addon2">
                   <div class="input-group-prepend">
-                      <button class="btn btn-outline-dark" type="submit" id="button-addon1"
-                          onclick="return buscarLibroPorFiltro(document.getElementById('texto').value)">
-                          <i class="fas fa-search"></i>
-                      </button>
-                      <button type="button" class="btn btn-outline-dark" id="button-addon3" data-bs-toggle="modal"
-                          onclick="registrarLibroBandera=true; limpiar();" data-bs-target="#exampleModal">
-                          <i class="fas fa-plus"></i>
-                      </button>
-                      <button type="button" class="btn btn-outline-dark" onclick="listarLibro(); blanquearCampos()">
-                          <i class="fas fa-eraser"></i>
-                      </button>
+                     <button type="button" class="btn btn-outline-dark" onclick="listarLibro(); blanquearCampos()">
+                        <i class="fas fa-eraser"></i>
+                     </button>
+                     <button type="button" class="btn btn-outline-dark" id="button-addon3" data-bs-toggle="modal"
+                        onclick="registrarLibroBandera=true; limpiar();" data-bs-target="#exampleModal">
+                        <i class="fas fa-plus"></i>
+                     </button>
                   </div>
-              </div>              
+               </div>
             </div>
          </div>
       </div>
       <div class="row">
-         <div class="col-md-12">
+         <div class="table-responsive">
             <table class=" table table-hover table-striped">
-               <div class="colorTabla">
+               <thead>
                   <tr>
+                     <th class="align-middle">ID</th>
                      <th class="align-middle">Titulo</th>
-                     <th class="align-middle">Autor</th>
-                     <th class="align-middle">ISBN</th>
-                     <th class="align-middle">Genero</th>
+                     <th class="text-center align-middle">Autor</th>
+                     <th class="text-center align-middle">ISBN</th>
+                     <th class="text-center align-middle">Genero</th>
                      <th class="text-center align-middle">Disponibles</th>
                      <th class="text-center align-middle">Ocupado</th>
                      <th class="text-center align-middle">Opciones</th>
                   </tr>
-               </div>
+               </thead>
                <tbody id="cuerpoTabla"></tbody>
                <!-- Las filas de la tabla se agregarán dinámicamente con JavaScript -->
             </table>
-            
+
          </div>
       </div>
    </div>
@@ -174,8 +172,8 @@
                                  required>
                            </div>
                            <div class="col col-xl-6 col-12">
-                              <label for="ISBN"><i class="fas fa-barcode"></i> ISBN:</label>
-                              <input type="number" id="ISBN" class="form-control" onfocusout="validarISBN(this)"
+                              <label for="isbn"><i class="fas fa-barcode"></i> ISBN:</label>
+                              <input type="number" id="isbn" class="form-control" onfocusout="validarisbn(this)"
                                  required>
                            </div>
                            <div class="col col-xl-6 col-12">
@@ -200,25 +198,24 @@
                      </div>
                   </div>
                </div>
-            </div>
-            <!-- <div class="modal-footer "> -->
-               <button type="button" class="btn btn-dark" onclick="registrarLibro();">Registrar</button> <!-- limpiar(); -->
+               <div class="modal-footer ">
+                  <button type="button" class="btn btn-dark" onclick="registrarLibro(); ">Registrar</button>
+               </div>
             </div>
          </div>
       </div>
-   </div>
 
-   <!-- Javascript files-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/Front-end/jsApi/libro.js"></script>
-   <script src="js/jquery.min.js"></script>
-   <script src="js/popper.min.js"></script>
-   <script src="js/bootstrap.bundle.min.js"></script>
-   <script src="js/jquery-3.0.0.min.js"></script>
-   <script src="js/plugin.js"></script>
-   <!-- sidebar -->
-   <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-   <script src="js/custom.js"></script>
+      <!-- Javascript files-->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="/Front-end/jsApi/libro.js"></script>
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
 </body>
 
 </html>

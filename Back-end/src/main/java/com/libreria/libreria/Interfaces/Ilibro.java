@@ -11,7 +11,7 @@ import com.libreria.libreria.Models.libro;
 @Repository
 public interface Ilibro extends CrudRepository<libro, String>{
 
-    @Query ("SELECT l FROM libro l WHERE l.titulo LIKE %?1% OR l.autor LIKE %?1% OR l.genero LIKE %?1% OR l.ISBN LIKE %?1%")
+    @Query ("SELECT l FROM libro l WHERE l.titulo LIKE %?1% OR l.autor LIKE %?1% OR l.genero LIKE %?1% OR l.isbn LIKE %?1%")
     List<libro> filtroLibro(String filtro);
     
 }
