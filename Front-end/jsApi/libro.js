@@ -81,7 +81,7 @@ function registrarLibro() {
     var autor = document.getElementById("autor");
     var ISBN = document.getElementById("ISBN");
     var genero = document.getElementById("genero");
-    var numEjemplarpDisponible = document.getElementById("numEjemplarpDisponible");
+    var numEjemplarDisponible = document.getElementById("numEjemplarDisponible");
     var numEjemplarOcupado = document.getElementById("numEjemplarOcupado");
 
     // Verificar si algún campo obligatorio está vacío
@@ -89,7 +89,7 @@ function registrarLibro() {
         !validarAutor(autor) ||
         !validarISBN(ISBN) ||
         !validarGenero(genero) ||
-        !validarNumEjemplarDisponible(numEjemplarpDisponible) ||
+        !validarNumEjemplarDisponible(numEjemplarDisponible) ||
         !validarNumEjemplarOcupado(numEjemplarOcupado)) {
         // Mostrar una alerta indicando que todos los campos son obligatorios
         Swal.fire({
@@ -105,7 +105,7 @@ function registrarLibro() {
         "autor": autor.value,
         "ISBN": ISBN.value,
         "genero": genero.value,
-        "numEjemplarpDisponible": numEjemplarpDisponible.value,
+        "numEjemplarDisponible": numEjemplarDisponible.value,
         "numEjemplarOcupado": numEjemplarOcupado.value,
     };
 
@@ -148,18 +148,18 @@ function registrarLibro() {
 };
 
 // Función para validar campos
+
+
 // Función titulo 
-function validarCampos() {
+function validarCamposTitulo() {
     var titulo = document.getElementById("titulo");
     return validarTitulo(titulo);
 }
-
-// Función para validar el nombreProducto
 function validarTitulo(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 100) {
+    if (valor.length < 1 || valor.length > 101) {
         valido = false;
     }
 
@@ -173,17 +173,15 @@ function validarTitulo(cuadroNumero) {
 }
 
 // Función autor
-function validarCampos() {
+function validarCamposAutor() {
     var autor = document.getElementById("autor");
     return validarAutor(autor);
 }
-
-// Función para validar autor
 function validarAutor(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 46) {
+    if (valor.length < 1 || valor.length > 47) {
         valido = false;
     }
 
@@ -197,18 +195,16 @@ function validarAutor(cuadroNumero) {
 }
 
 
-// Función Cantidad
-
-function validarCamposCantidad() {
-    var cantidad = document.getElementById("cantidad");
-    return validarCantidad(cantidad);
+// Función ISBN
+function validarCamposISBN() {
+    var ISBN = document.getElementById("ISBN");
+    return validarISBN(ISBN);
 }
-
-function validarCantidad(cuadroNumero) {
+function validarISBN(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 100) {
+    if (valor.length < 1 || valor.length > 16) {
         valido = false;
     }
 
@@ -221,18 +217,16 @@ function validarCantidad(cuadroNumero) {
     return valido;
 }
 
-// Función Precio
-
-function validarCamposPrecio() {
-    var precio = document.getElementById("precio");
-    return validarPrecio(precio);
+// Función genero
+function validarCamposGenero() {
+    var genero = document.getElementById("genero");
+    return validarGenero(genero);
 }
-
-function validarPrecio(cuadroNumero) {
+function validarGenero(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 1000) {
+    if (valor.length < 1 || valor.length > 37) {
         valido = false;
     }
 
@@ -245,18 +239,16 @@ function validarPrecio(cuadroNumero) {
     return valido;
 }
 
-// Función iva
-
-function validarCamposIva() {
-    var iva = document.getElementById("iva");
-    return validarIva(iva);
+// Función numEjemplarDisponible
+function validarCamposNumEjemplarDisponible() {
+    var numEjemplarDisponible = document.getElementById("numEjemplarDisponible");
+    return validarNumEjemplarDisponible(numEjemplarDisponible);
 }
-
-function validarIva(cuadroNumero) {
+function validarNumEjemplarDisponible(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 100) {
+    if (valor.length < 1 || valor.length > 101) {
         valido = false;
     }
 
@@ -269,18 +261,16 @@ function validarIva(cuadroNumero) {
     return valido;
 }
 
-// Función descuento
-
-function validarCamposDescuento() {
-    var descuento = document.getElementById("descuento");
-    return validarDescuento(descuento);
+// Función numEjemplarOcupado
+function validarCamposNumEjemplarOcupado() {
+    var numEjemplarOcupado = document.getElementById("numEjemplarOcupado");
+    return validarNumEjemplarOcupado(numEjemplarOcupado);
 }
-
-function validarDescuento(cuadroNumero) {
+function validarNumEjemplarOcupado(cuadroNumero) {
     var valor = cuadroNumero.value;
     var valido = true;
 
-    if (valor.length < 1 || valor.length > 100) {
+    if (valor.length < 1 || valor.length > 101) {
         valido = false;
     }
 
@@ -292,49 +282,95 @@ function validarDescuento(cuadroNumero) {
 
     return valido;
 }
-
-// Función estado
-
-function validarCamposEstado() {
-    var estado = document.getElementById("estado");
-    return validarEstado(estado);
-}
-
-function validarEstado(cuadroNumero) {
-    var valor = cuadroNumero.value;
-    var valido = true;
-
-    if (valor.length < 1 || valor.length > 9) {
-        valido = false;
-    }
-
-    if (valido) {
-        cuadroNumero.className = "form-control is-valid";
-    } else {
-        cuadroNumero.className = "form-control is-invalid";
-    }
-
-    return valido;
-}
-
-
-
 
 // Función para limpiar campos del formulario
 function limpiar() {
-    document.getElementById("nombreProducto").value = "";
-    document.getElementById("nombreProducto").className = "form-control";
-    document.getElementById("descripcion").value = "";
-    document.getElementById("descripcion").className = "form-control";
-    document.getElementById("cantidad").value = "";
-    document.getElementById("cantidad").className = "form-control";
-    document.getElementById("precio").value = "";
-    document.getElementById("precio").className = "form-control";
-    document.getElementById("iva").value = "";
-    document.getElementById("iva").className = "form-control";
-    document.getElementById("descuento").value = "";
-    document.getElementById("descuento").className = "form-control";
-    document.getElementById("estado").value = "";
-    document.getElementById("estado").className = "form-control";
+    document.getElementById("titulo").value = "";
+    document.getElementById("titulo").className = "form-control";
+    document.getElementById("autor").value = "";
+    document.getElementById("autor").className = "form-control";
+    document.getElementById("ISBN").value = "";
+    document.getElementById("ISBN").className = "form-control";
+    document.getElementById("genero").value = "";
+    document.getElementById("genero").className = "form-control";
+    document.getElementById("numEjemplarDisponible").value = "";
+    document.getElementById("numEjemplarDisponible").className = "form-control";
+    document.getElementById("numEjemplarOcupado").value = "";
+    document.getElementById("numEjemplarOcupado").className = "form-control";
 }
 
+var idLibro = "";
+// Asociar eventos de clic a los iconos dentro de la tabla
+$(document).on("click", ".editar", function () {
+    limpiar();
+    idLibro = $(this).data("id");
+
+    $.ajax({
+        url: url + idLibro,
+        type: "GET",
+        success: function (libro) {
+            document.getElementById("titulo").value = libro.titulo;
+            document.getElementById("autor").value = libro.autor;
+            document.getElementById("ISBN").value = libro.ISBN;
+            document.getElementById("genero").value = libro.genero;
+            document.getElementById("numEjemplarDisponible").value = libro.numEjemplarDisponible;
+            document.getElementById("numEjemplarOcupado").value = libro.numEjemplarOcupado;
+            $('#exampleModal').modal('show');
+        },
+        error: function (error) {
+            alert("Error al obtener los datos del libro: " + error.statusText);
+        }
+    });
+});
+
+$(document).on("click", ".eliminar", function () {
+    // Obtener el ID del cliente desde el atributo data del elemento clicado
+    var idLibro = $(this).data("id");
+
+    // Mostrar un cuadro de diálogo para confirmar la eliminación
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¿Deseas eliminar estos Libros?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar'
+    }).then((result) => {
+        // Si el usuario confirma la eliminación, proceder con la solicitud AJAX
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url + "eliminarLibro/" + idLibro,
+                type: "DELETE",
+                success: function (eliminarLibro) {
+                    // Mostrar un mensaje de éxito
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Libro Eliminado",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    // Actualizar la lista de cliente después de eliminar
+                    listarLibro();
+                },
+                // error: function (xhr, status, error) {
+                //     // Manejo de errores
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: 'Error',
+                //         text: 'El registro tiene un ingreso.'
+                //     });
+                // }
+            });
+        }
+    });
+});
+
+// Llamar a la función para listar cliente al cargar la página
+$(document).ready(function () {
+    listarLibro();
+});
+function actualizarlistarLibro() {
+    listarLibro();
+}

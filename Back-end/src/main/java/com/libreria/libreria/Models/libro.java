@@ -40,7 +40,7 @@ public class libro {
     @Column(name = "genero", nullable = false, length = 36)
     private String genero;
 
-    @Column(name = "numEjemplarpDisponible", nullable = false, length = 100)
+    @Column(name = "numEjemplarDisponible", nullable = false, length = 100)
     private String numEjemplarDisponible;
 
     @Column(name = "numEjemplarOcupado", nullable = false, length = 100)

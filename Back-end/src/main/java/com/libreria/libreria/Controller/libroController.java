@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.libreria.libreria.InterfacesService.IlibroService;
 import com.libreria.libreria.Models.libro;
 
-@RequestMapping("/api/v1/libro/")
+@RequestMapping("/api/v1/libro")
 @RestController
 public class libroController {
     
@@ -23,7 +23,40 @@ public class libroController {
     private IlibroService libroService;
 
     @PostMapping("/")
-    public ResponseEntity<Object> save (@ModelAttribute("libro") libro libro){
+    public ResponseEntity<Object> save(@ModelAttribute("libro") libro libro) {
+        var listaLibro = libroService.findAll()
+                .stream().filter(Libro -> Libro.getTitulo()
+                        .equals(Libro.getTitulo()));
+
+        if (listaLibro.count() != 0) {
+            return new ResponseEntity<>("Este cliente ya existe", HttpStatus.BAD_REQUEST);
+        }
+
+        if (libro.getAutor().equals("")) {
+
+            return new ResponseEntity<>("El campo tipo de documento es obligatorio", HttpStatus.BAD_REQUEST);
+        }
+
+        if (libro.getISBN().equals("")) {
+
+            return new ResponseEntity<>("El campo documento es obligatorio", HttpStatus.BAD_REQUEST);
+        }
+
+        if (libro.getGenero().equals("")) {
+
+            return new ResponseEntity<>("El campo nombre es obligatorio", HttpStatus.BAD_REQUEST);
+        }
+
+        if (libro.getNumEjemplarDisponible().equals("")) {
+
+            return new ResponseEntity<>("El campo apellido es obligatorio", HttpStatus.BAD_REQUEST);
+        }
+
+        if (libro.getNumEjemplarOcupado().equals("")) {
+
+            return new ResponseEntity<>("El campo número de teléfono es obligatorio", HttpStatus.BAD_REQUEST);
+        }
+
         libroService.save(libro);
         return new ResponseEntity<>(libro, HttpStatus.OK);
     }
