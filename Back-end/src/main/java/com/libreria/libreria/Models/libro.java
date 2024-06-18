@@ -41,10 +41,10 @@ public class libro {
     private String genero;
 
     @Column(name = "numEjemplarDisponible", nullable = false, length = 100)
-    private String numEjemplarDisponible;
+    private int numEjemplarDisponible;
 
     @Column(name = "numEjemplarOcupado", nullable = false, length = 100)
-    private String numEjemplarOcupado;
+    private int numEjemplarOcupado;
 
 
 }
