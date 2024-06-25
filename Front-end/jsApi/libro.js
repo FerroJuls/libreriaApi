@@ -2,6 +2,87 @@
 // URL de la API se declara una url por si se modifica solo cambiar donde la declaro y no entodas las demas partes
 var url = "http://localhost:8080/api/v1/libro/";
 
+
+// este metodo solo permite letras
+const letrasPermitidas = [
+    'A', 'Á', 'B', 'C', 'D', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 
+    'N', 'Ñ', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'á', 'b', 'c', 'd', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm',
+    'n', 'ñ', 'o', 'ó', 'p', 'q', 'r', 's', 't', 'u', 'ú', 'ü', 'v', 'w', 'x', 'y', 'z', ' '
+];
+const numerosPermitidos = [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ''
+];
+const signosPermitidos = [
+    '.', ',', '@', '_', '-', ' '
+];
+
+// FORMA CORTA
+function soloLetras(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
+
+    if(!(letrasPermitidas.includes(event.key))){
+        event.preventDefault();
+        return;
+    }
+}
+function soloNumeros(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
+
+    if(!(numerosPermitidos.includes(event.key))){
+        event.preventDefault();
+        return;
+    }
+}
+function soloSignos(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
+
+    if(!(signosPermitidos.includes(event.key))){
+        event.preventDefault();
+        return;
+    }
+}
+// function alfaNumericos(event) {
+//     console.log("Llave presionada: " + event.key);
+//     console.log("Codigo tecla: " + event.keyCode);
+
+//     if(!((numerosPermitidos.includes(event.key)) || (letrasPermitidas(event.key)))){
+//         event.preventDefault();
+//         return;
+//     }
+// }
+
+
+
+// FORMA LARGA
+// function soloLetras(event) {
+//     console.log("Llave presionada: " + event.key);
+//     console.log("Codigo tecla: " + event.keyCode);
+//     if (!((event.keyCode >= 65 && event.keyCode <= 90) 
+//         || (event.keyCode >= 97 && event.keyCode <= 122) 
+//         || (event.keyCode > 224 && event.keyCode < 226) 
+//         || (event.keyCode > 232 && event.keyCode < 234) 
+//         || (event.keyCode > 236 && event.keyCode < 238) 
+//         || (event.keyCode > 242 && event.keyCode < 244) 
+//         || (event.keyCode > 249 && event.keyCode < 251) 
+//         || (event.keyCode > 192 && event.keyCode < 194) 
+//         || (event.keyCode > 200 && event.keyCode < 202) 
+//         || (event.keyCode > 204 && event.keyCode < 206) 
+//         || (event.keyCode > 210 && event.keyCode < 212) 
+//         || (event.keyCode > 217 && event.keyCode < 219) 
+//         || (event.keyCode > 240 && event.keyCode < 242) 
+//         || (event.keyCode > 208 && event.keyCode < 210) 
+//         || (event.keyCode > 31 && event.keyCode < 33))) {
+//         event.preventDefault();
+//         return;
+//     } else {
+
+//     }
+// }
+
 // hacemos la funcion del filtro 
 function buscarLibroPorFiltro(filtro) {
     if (filtro.trim() !== "") {

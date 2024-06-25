@@ -163,34 +163,34 @@
                         <form class="row table-hover needs-validation">
                            <div class="col col-xl-6 col-12 table-hover">
                               <label for="titulo"><i class="fas fa-book"></i> Título:</label>
-                              <input type="text" id="titulo" class="form-control" onfocusout="validarTitulo(this)"
+                              <input type="text" id="titulo" class="form-control" onfocusout="validarTitulo(this)" onkeypress="soloLetras(event);"
                                  required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="autor"><i class="fas fa-user"></i> Autor:</label>
-                              <input type="text" id="autor" class="form-control" onfocusout="validarAutor(this)"
+                              <input type="text" id="autor" class="form-control" onfocusout="validarAutor(this)" onkeypress="soloLetras(event);"
                                  required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="isbn"><i class="fas fa-barcode"></i> ISBN:</label>
-                              <input type="number" id="isbn" class="form-control" onfocusout="validarisbn(this)"
+                              <input type="number" id="isbn" class="form-control" onfocusout="validarisbn(this)" onkeypress="soloNumeros(event);"
                                  required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="genero"><i class="fas fa-book"></i> Género:</label>
-                              <input type="text" id="genero" class="form-control" onfocusout="validarGenero(this)"
+                              <input type="text" id="genero" class="form-control" onfocusout="validarGenero(this)" onkeypress="soloLetras(event);"
                                  required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="numEjemplarDisponible"><i class="fas fa-check"></i> Ejemplares
                                  Disponibles:</label>
                               <input type="text" id="numEjemplarDisponible" class="form-control"
-                                 onfocusout="validarNumEjemplarDisponible(this)" required>
+                                 onfocusout="validarNumEjemplarDisponible(this)" onkeypress="soloNumeros(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="numEjemplarOcupado"><i class="fas fa-times"></i> Ejemplares Ocupados:</label>
                               <input type="text" id="numEjemplarOcupado" class="form-control"
-                                 onfocusout="validarNumEjemplarOcupado(this)" required>
+                                 onfocusout="validarNumEjemplarOcupado(this)" onkeypress="soloNumeros(event);" required>
                            </div>
 
                         </form>

@@ -26,6 +26,12 @@ public class prestamoController {
     @PostMapping("/")
      public ResponseEntity<Object> save (@ModelAttribute("prestamo") prestamo prestamo){
         prestamoService.save(prestamo);
+        //obtener el libro
+        //prestamo.getLibro();
+        //controller libro
+        //actualizar el libro
+        prestamo.getLibro().setNumEjemplarDisponible(prestamo.getLibro().getNumEjemplarDisponible()-1);
+        prestamo.getLibro().setNumEjemplarOcupado(prestamo.getLibro().getNumEjemplarOcupado()+1);
         return new ResponseEntity<>(prestamo, HttpStatus.OK);
     }
     
