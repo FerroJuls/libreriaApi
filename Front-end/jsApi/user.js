@@ -12,7 +12,7 @@ const numerosPermitidos = [
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ''
 ];
 const signosPermitidos = [
-    '.', ',', '@', '_', '-', ' '
+    '.', ',', '@', '_', '-', '#', ''
 ];
 
 // FORMA CORTA
@@ -43,6 +43,48 @@ function soloSignos(event) {
         return;
     }
 }
+function alfaNumericos(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
+
+    if(!((numerosPermitidos.includes(event.key)) || (letrasPermitidas.includes(event.key)))){
+        event.preventDefault();
+        return;
+    }
+}
+function alfaNumericosSignos(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
+
+    if(!((numerosPermitidos.includes(event.key)) || (letrasPermitidas.includes(event.key)) || (signosPermitidos.includes(event.key)))){
+        event.preventDefault();
+        return;
+    }
+}
+
+const letrasPermitidasEs = [
+    'A', 'Á', 'B', 'C', 'D', 'E', 'É', 'F', 'G', 'H', 'I', 'Í', 'J', 'K', 'L', 'M', 
+    'N', 'Ñ', 'O', 'Ó', 'P', 'Q', 'R', 'S', 'T', 'U', 'Ú', 'Ü', 'V', 'W', 'X', 'Y', 'Z',
+    'a', 'á', 'b', 'c', 'd', 'e', 'é', 'f', 'g', 'h', 'i', 'í', 'j', 'k', 'l', 'm',
+    'n', 'ñ', 'o', 'ó', 'p', 'q', 'r', 's', 't', 'u', 'ú', 'ü', 'v', 'w', 'x', 'y', 'z'
+];
+const numerosPermitidosEs = [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
+];
+const signosPermitidosEs = [
+    '.', ',', '@', '_', '-', '#'
+];
+function alfaNumericosSignosEs(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
+
+    if(!((letrasPermitidasEs.includes(event.key)) || (numerosPermitidosEs.includes(event.key)) || (signosPermitidosEs.includes(event.key)))){
+        event.preventDefault();
+        return;
+    }
+}
+
+
 
 // hacemos la funcion del filtro 
 function buscarUsuarioPorFiltro(filtro) {
@@ -177,8 +219,12 @@ function registrarUsuario() {
                     listarUsuario(); // Aquí se vuelve a listar los productos
                 });
             },
-            error: function (request, error) {
-                alert("Request: " + JSON.stringify(request));
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    title: "Error",
+                    text: "¡El usuario no a devuelto el libro!",
+                    icon: "error"
+                });
             }
         });
     } else {
@@ -239,22 +285,29 @@ function validarDireccion(cuadroNumero) {
 }
 
 // Función correo
-function validarCorreo(cuadroNumero) {
-    var valor = cuadroNumero.value;
-    var valido = true;
+function validarCorreo(inputCorreo) {
+    var valor = inputCorreo.value;
 
-    if (valor.length < 1 || valor.length > 101) {
-        valido = false;
-    }
+    // Crear la expresión regular dinámicamente con los caracteres permitidos
+    var regexCorreo = new RegExp(
+        '^[' +
+        letrasPermitidasEs.join('') +
+        numerosPermitidosEs.join('') +
+        '\\' + signosPermitidosEs.join('\\') + // Escapar los caracteres especiales
+        ']+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    );
 
-    if (valido) {
-        cuadroNumero.className = "form-control is-valid";
+    if (regexCorreo.test(valor)) {
+        inputCorreo.classList.remove('is-invalid');
+        inputCorreo.classList.add('is-valid');
+        return true;
     } else {
-        cuadroNumero.className = "form-control is-invalid";
+        inputCorreo.classList.remove('is-valid');
+        inputCorreo.classList.add('is-invalid');
+        return false;
     }
-
-    return valido;
 }
+
 
 // Función tipoUser
 function validarTipoUser(cuadroNumero) {
@@ -340,14 +393,13 @@ $(document).on("click", ".eliminar", function () {
                     // Actualizar la lista de cliente después de eliminar
                     listarUsuario();
                 },
-                // error: function (xhr, status, error) {
-                //     // Manejo de errores
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Error',
-                //         text: 'El registro tiene un ingreso.'
-                //     });
-                // }
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "¡El usuario no a devuelto el libro!",
+                        icon: "error"
+                    });
+                }
             });
         }
     });

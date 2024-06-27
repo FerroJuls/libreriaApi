@@ -152,19 +152,19 @@
                         <form class="row table-hover needs-validation">
                            <div class="col col-xl-6 col-12 table-hover">
                                <label for="nombre"><i class="fas fa-book"></i> Nombre:</label>
-                               <input type="text" id="nombre" class="form-control" onfocusout="validarNombre(this)" onkeypress="soloLetras(event);" required>
+                               <input type="text" id="nombre" class="form-control" onfocusout="validarNombre(this)"onkeypress="soloLetras(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                                <label for="direccion"><i class="fas fa-user"></i> Dirección:</label>
-                               <input type="text" id="direccion" class="form-control" onfocusout="validarDireccion(this)" required>
+                               <input type="text" id="direccion" class="form-control" onfocusout="validarDireccion(this)" onkeypress="alfaNumericosSignos(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                                <label for="correo"><i class="fas fa-envelope"></i> Correo:</label>
-                               <input type="email" id="correo" class="form-control" onfocusout="validarCorreo(this)" required>
+                               <input type="email" id="correo" class="form-control" onfocusout="validarCorreo(this)" onkeypress="alfaNumericosSignosEs(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                                <label for="tipoUser"><i class="fas fa-user-tag"></i> Tipo de Usuario:</label>
-                               <select id="tipoUser" class="form-control" onfocusout="validarTipoUser(this)" onkeypress="soloLetras(event);" required>
+                               <select id="tipoUser" class="form-control" onfocusout="validarTipoUser(this)"onkeypress="soloLetras(event);" required>
                                    <option value="Lector">Lector</option>
                                    <option value="Bibliotecario">Bibliotecario</option>
                                    <option value="Administrador">Administrador</option>

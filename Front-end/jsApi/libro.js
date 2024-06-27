@@ -14,7 +14,7 @@ const numerosPermitidos = [
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ''
 ];
 const signosPermitidos = [
-    '.', ',', '@', '_', '-', ' '
+    '.', ',', '@', '_', '-', '#', ''
 ];
 
 // FORMA CORTA
@@ -45,15 +45,15 @@ function soloSignos(event) {
         return;
     }
 }
-// function alfaNumericos(event) {
-//     console.log("Llave presionada: " + event.key);
-//     console.log("Codigo tecla: " + event.keyCode);
+function alfaNumericos(event) {
+    console.log("Llave presionada: " + event.key);
+    console.log("Codigo tecla: " + event.keyCode);
 
-//     if(!((numerosPermitidos.includes(event.key)) || (letrasPermitidas(event.key)))){
-//         event.preventDefault();
-//         return;
-//     }
-// }
+    if(!((numerosPermitidos.includes(event.key)) || (letrasPermitidas.includes(event.key)))){
+        event.preventDefault();
+        return;
+    }
+}
 
 
 
@@ -226,8 +226,12 @@ function registrarLibro() {
                     listarLibro(); // Aquí se vuelve a listar los productos
                 });
             },
-            error: function (request, error) {
-                alert("Request: " + JSON.stringify(request));
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    title: "Error",
+                    text: "¡El libro esta prestado!",
+                    icon: "error"
+                });
             }
         });
     } else {
@@ -434,14 +438,13 @@ $(document).on("click", ".eliminar", function () {
                     // Actualizar la lista de cliente después de eliminar
                     listarLibro();
                 },
-                // error: function (xhr, status, error) {
-                //     // Manejo de errores
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Error',
-                //         text: 'El registro tiene un ingreso.'
-                //     });
-                // }
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "¡El libro esta prestado!",
+                        icon: "error"
+                    });
+                }
             });
         }
     });
