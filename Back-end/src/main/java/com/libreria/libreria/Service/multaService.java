@@ -45,7 +45,7 @@ public class multaService implements ImultaService {
     
     @Override
     public List<multa> filtroMulta(String filtro) {
-        List<multa> listaMulta = data.filtroMulta(filtro );
+        List<multa> listaMulta = data.filtroMulta(filtro, filtro, filtro );
         return listaMulta;
     }
     

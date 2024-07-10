@@ -44,7 +44,7 @@ public class prestamoService implements IprestamoService{
     
     @Override
     public List<prestamo> filtroPrestamo(String filtro) {
-        List<prestamo> listaPrestamo = data.filtroPrestamo(filtro );
+        List<prestamo> listaPrestamo = data.filtroPrestamo(filtro, filtro, filtro );
         return listaPrestamo;
     }
     

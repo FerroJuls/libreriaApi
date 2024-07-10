@@ -390,3 +390,48 @@ function actualizarlistarPrestamo() {
     listarPrestamo();
 }
 
+function obtenerFechaActual() {
+    const hoy = new Date();
+    let mes = hoy.getMonth() + 1;
+    let dia = hoy.getDate();
+
+    // Ajuste para tener el formato adecuado con dos dígitos
+    mes = mes < 10 ? '0' + mes : mes;
+    dia = dia < 10 ? '0' + dia : dia;
+
+    return hoy.getFullYear() + '-' + mes + '-' + dia;
+}
+
+// Función para establecer la fecha de préstamo por defecto y limitar fechas anteriores
+function configurarFechaPrestamo() {
+    const fechaPrestamoInput = document.getElementById('fechaPrestamo');
+    fechaPrestamoInput.value = obtenerFechaActual();
+    fechaPrestamoInput.setAttribute('min', obtenerFechaActual());
+}
+
+// Función para calcular y establecer la fecha de devolución por defecto (3 meses después)
+function configurarFechaDevolucion() {
+    const fechaDevolucionInput = document.getElementById('fechaDevolucion');
+    const fechaPrestamo = new Date(document.getElementById('fechaPrestamo').value);
+    fechaPrestamo.setMonth(fechaPrestamo.getMonth() + 1); // Sumar 3 meses
+    let mes = fechaPrestamo.getMonth() + 1;
+    let dia = fechaPrestamo.getDate();
+
+    // Ajuste para tener el formato adecuado con dos dígitos
+    mes = mes < 10 ? '0' + mes : mes;
+    dia = dia < 10 ? '0' + dia : dia;
+
+    const fechaDevolucion = fechaPrestamo.getFullYear() + '-' + mes + '-' + dia;
+    fechaDevolucionInput.value = fechaDevolucion;
+}
+
+// Llamar a las funciones al cargar la página
+window.onload = function() {
+    configurarFechaPrestamo();
+    configurarFechaDevolucion();
+};
+
+// Event listener para actualizar la fecha de devolución si cambia la fecha de préstamo
+document.getElementById('fechaPrestamo').addEventListener('change', function() {
+    configurarFechaDevolucion();
+});
