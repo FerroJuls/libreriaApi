@@ -51,6 +51,34 @@
 </head>
 <!-- body -->
 
+
+<style>
+   .autocomplete-container {
+      position: relative;
+      width: 100%;
+   }
+
+   .autocomplete-list {
+      position: absolute;
+      border: 1px solid #ddd;
+      border-top: none;
+      z-index: 1000;
+      max-height: 150px;
+      overflow-y: auto;
+      width: 100%;
+      background-color: white;
+   }
+
+   .autocomplete-item {
+      padding: 10px;
+      cursor: pointer;
+   }
+
+   .autocomplete-item:hover {
+      background-color: #ddd;
+   }
+</style>
+
 <body class="main-layout">
    <!-- loader  -->
    <div class="loader_bg">
@@ -163,29 +191,33 @@
                         <form class="row table-hover needs-validation">
                            <div class="col col-xl-6 col-12 table-hover">
                               <label for="titulo"><i class="fas fa-book"></i> Título:</label>
-                              <input type="text" id="titulo" class="form-control" onfocusout="validarTitulo(this)" onkeypress="alfaNumericos(event);"
-                                 required>
+                              <input type="text" id="titulo" class="form-control" onfocusout="validarTitulo(this)"
+                                 onkeypress="alfaNumericos(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="autor"><i class="fas fa-user"></i> Autor:</label>
-                              <input type="text" id="autor" class="form-control" onfocusout="validarAutor(this)" onkeypress="soloLetras(event);"
-                                 required>
+                              <input type="text" id="autor" class="form-control" onfocusout="validarAutor(this)"
+                                 onkeypress="soloLetras(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="isbn"><i class="fas fa-barcode"></i> ISBN:</label>
-                              <input type="number" id="isbn" class="form-control" onfocusout="validarisbn(this)" onkeypress="soloNumeros(event);"
-                                 required>
+                              <input type="number" id="isbn" class="form-control" onfocusout="validarisbn(this)"
+                                 onkeypress="soloNumeros(event);" required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="genero"><i class="fas fa-book"></i> Género:</label>
-                              <input type="text" id="genero" class="form-control" onfocusout="validarGenero(this)" onkeypress="soloLetras(event);"
-                                 required>
+                              <div class="autocomplete-container">
+                                 <input type="text" id="genero" class="form-control" required>
+                                 <div id="autocomplete-list" class="autocomplete-list"></div>
+                              </div>
                            </div>
+                           
                            <div class="col col-xl-6 col-12">
                               <label for="numEjemplarDisponible"><i class="fas fa-check"></i> Ejemplares
                                  Disponibles:</label>
                               <input type="text" id="numEjemplarDisponible" class="form-control"
-                                 onfocusout="validarNumEjemplarDisponible(this)" onkeypress="soloNumeros(event);" required>
+                                 onfocusout="validarNumEjemplarDisponible(this)" onkeypress="soloNumeros(event);"
+                                 required>
                            </div>
                            <div class="col col-xl-6 col-12">
                               <label for="numEjemplarOcupado"><i class="fas fa-times"></i> Ejemplares Ocupados:</label>

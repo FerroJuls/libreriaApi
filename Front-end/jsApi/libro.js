@@ -457,3 +457,135 @@ $(document).ready(function () {
 function actualizarlistarLibro() {
     listarLibro();
 }
+
+
+
+
+const generos = [
+   "Ficción",
+   "No Ficción",
+   "Ciencia Ficción",
+   "Fantasía",
+   "Misterio",
+   "Romance",
+   "Histórico",
+   "Biografía",
+   "Terror",
+   "Autoayuda",
+   "Aventura",
+   "Thriller",
+   "Drama",
+   "Suspense",
+   "Literatura Contemporánea",
+   "Literatura Clásica",
+   "Literatura Juvenil",
+   "Poesía",
+   "Ensayo",
+   "Crítica Literaria",
+   "Cómic",
+   "Graphic Novel",
+   "Novela Gráfica",
+   "Dystopía",
+   "Utopía",
+   "Relato Corto",
+   "Novela Negra",
+   "Policial",
+   "Histórica",
+   "Erótica",
+   "Ficción Histórica",
+   "Horror",
+   "Gótico",
+   "Magical Realism",
+   "Literatura Infantil",
+   "Ficción Especulativa",
+   "Contemporáneo",
+   "Romántica",
+   "Narrativa",
+   "Espionaje",
+   "Política",
+   "Economía",
+   "Autobiografía",
+   "Memorias",
+   "Diario",
+   "Ensayo Académico",
+   "Fábula",
+   "Sátira",
+   "Parodia",
+   "Novela Romántica",
+   "Novela Histórica",
+   "Realismo Mágico",
+   "Mitología",
+   "Espiritualidad",
+   "Ciencia Popular",
+   "Ficción Realista",
+   "Relatos de Terror",
+   "Novela de Formación",
+   "Novela Experimental",
+   "Teatro",
+   "Manga",
+   "Anime",
+   "Noir",
+   "Ficción Alternativa",
+   "Ficción de Viajes en el Tiempo",
+   "Ficción de Superhéroes",
+   "Literatura de Viajes",
+   "Relatos de Viajes",
+   "Ciencia y Tecnología",
+   "Crónica",
+   "Género de Supervivencia",
+   "Género de Fantasía Épica",
+   "Género de Ciencia Ficción Dura",
+   "Género de Ciencia Ficción Blanda",
+   "Ficción Aventura",
+   "Ficción de Espionaje",
+   "Ficción de Guerra",
+   "Literatura Infantil Temprana",
+   "Literatura para Pre-adolescentes",
+   "Biografía Autorizada",
+   "Biografía No Autorizada",
+   "Ensayo Personal",
+   "Ensayo Crítico",
+   "Ficción de Fantasía Urbana",
+   "Ficción de Ciencia Ficción Social",
+   "Ficción de Ciencia Ficción Militar",
+   "Ficción de Ciencia Ficción Cyberpunk",
+   "Novela de Espionaje de Ciencia Ficción",
+   "Novela de Espionaje Histórico",
+   "Novela de Ciencia Ficción Policial",
+   "Literatura Indígena",
+   "Literatura Postcolonial",
+   "Literatura Africana",
+   "Literatura Latinoamericana",
+   "Literatura de Autoayuda Espiritual",
+   "Literatura de Autoayuda Profesional",
+   "Novela de Desarrollo Personal"
+];
+
+const input = document.getElementById('genero');
+const listContainer = document.getElementById('autocomplete-list');
+
+input.addEventListener('input', function () {
+   const query = this.value.toLowerCase();
+   listContainer.innerHTML = '';
+
+   if (query) {
+      const filteredGeneros = generos.filter(genero => genero.toLowerCase().includes(query));
+
+      filteredGeneros.forEach(genero => {
+         const item = document.createElement('div');
+         item.textContent = genero;
+         item.className = 'autocomplete-item';
+         item.addEventListener('click', function () {
+            input.value = genero;
+            listContainer.innerHTML = '';
+         });
+         listContainer.appendChild(item);
+      });
+   }
+});
+
+document.addEventListener('click', function (event) {
+   if (!input.contains(event.target) && !listContainer.contains(event.target)) {
+      listContainer.innerHTML = '';
+   }
+});
